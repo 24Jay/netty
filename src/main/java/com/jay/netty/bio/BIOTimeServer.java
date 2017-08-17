@@ -6,7 +6,7 @@ import java.net.Socket;
 
 import com.jay.netty.TimeServerHandler;
 
-public class TimeServer
+public class BIOTimeServer
 {
 	public static void main(String[] ar) throws IOException
 	{
