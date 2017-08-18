@@ -11,7 +11,7 @@ import java.util.Iterator;
 import java.util.Set;
 import java.util.logging.Handler;
 
-public class ConnectionHandler 
+public class ConnectionHandler
 {
 
 	private final static String host = "127.0.0.1";
@@ -41,14 +41,12 @@ public class ConnectionHandler
 			// synchronized (selector)
 			if (channel.connect(new InetSocketAddress(host, port)))
 			{
-				System.out.println(ConnectionHandler.class
-						+ "-------Connected to 127.0.0.1:8080 successfully!");
+				System.out.println(this + "-------Connected to 127.0.0.1:8080 successfully!");
 				channel.register(selector, SelectionKey.OP_READ);
 			}
 			else
 			{
-				System.out.println(
-						ConnectionHandler.class + "-------Connected to 127.0.0.1:8080 failed!");
+				System.out.println(this + "-------Connected to 127.0.0.1:8080 failed!");
 				channel.register(selector, SelectionKey.OP_CONNECT);
 			}
 		}
@@ -59,5 +57,4 @@ public class ConnectionHandler
 		}
 	}
 
-	
 }

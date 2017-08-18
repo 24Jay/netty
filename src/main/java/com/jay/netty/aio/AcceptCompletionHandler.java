@@ -1,20 +1,29 @@
 package com.jay.netty.aio;
 
+import java.nio.ByteBuffer;
+import java.nio.channels.AsynchronousSocketChannel;
 import java.nio.channels.CompletionHandler;
 
-public class AcceptCompletionHandler implements CompletionHandler
+public class AcceptCompletionHandler
+		implements CompletionHandler<AsynchronousSocketChannel, AsyncTimeServerHandler>
 {
 
-	public void completed(Object result, Object attachment)
+	public void completed(AsynchronousSocketChannel result, AsyncTimeServerHandler attachment)
 	{
-		// TODO Auto-generated method stub
+		attachment.asynchronousServerSocketChannel.accept(attachment, this);
+
+		ByteBuffer buffer = ByteBuffer.allocate(1024);
 		
+		/***
+		 * AsynchronousSocketChannel的异步读方法
+		 */
+		result.read(buffer, buffer, new ReadCompletionHandler(result));
 	}
 
-	public void failed(Throwable exc, Object attachment)
+	public void failed(Throwable exc, AsyncTimeServerHandler attachment)
 	{
-		// TODO Auto-generated method stub
-		
+		exc.printStackTrace();
+		attachment.latch.countDown();
 	}
 
 }

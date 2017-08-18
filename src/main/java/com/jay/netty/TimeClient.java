@@ -17,52 +17,56 @@ public class TimeClient
 		Socket socket = null;
 		BufferedReader in = null;
 		PrintWriter out = null;
-		try
+
+		for (int i = 0; i < 50000; i++)
 		{
-			socket = new Socket("127.0.0.1", port);
-			in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-			out = new PrintWriter(socket.getOutputStream(), true);
-			out.println("Query Time Order");
-			System.out.println("Send order to server succeed");
-			String resp = in.readLine();
-			System.out.println("Now is : " + resp);
-
-		}
-		catch (Exception e)
-		{
-			if (out != null)
+			try
 			{
-				out.close();
-				out = null;
-			}
+				socket = new Socket("127.0.0.1", port);
+				in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+				out = new PrintWriter(socket.getOutputStream(), true);
+				out.println("Query Time Order");
+				System.out.println("Send order to server succeed");
+				String resp = in.readLine();
+				System.out.println("Now is : " + resp);
 
-			if (in != null)
+			}
+			catch (Exception e)
 			{
-				try
+				if (out != null)
 				{
-					in.close();
+					out.close();
+					out = null;
 				}
-				catch (IOException e1)
-				{
-					e1.printStackTrace();
-				}
-				in = null;
-			}
 
-			if (socket != null)
-			{
-				try
+				if (in != null)
 				{
-					socket.close();
+					try
+					{
+						in.close();
+					}
+					catch (IOException e1)
+					{
+						e1.printStackTrace();
+					}
+					in = null;
 				}
-				catch (IOException e1)
-				{
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				socket = null;
-			}
 
+				if (socket != null)
+				{
+					try
+					{
+						socket.close();
+					}
+					catch (IOException e1)
+					{
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					socket = null;
+				}
+
+			}
 		}
 
 	}

@@ -12,7 +12,6 @@ public class SelectorHandler implements Runnable
 {
 	private Selector selector;
 
-	
 	private int count = 0;
 
 	private int success = 0;
@@ -35,7 +34,9 @@ public class SelectorHandler implements Runnable
 			{
 				selector.select(2000);
 				Set<SelectionKey> keys = selector.selectedKeys();
-//				System.out.println("keys.count()========" + keys.size());
+				Set<SelectionKey> allKeys = selector.keys();
+				System.out.println("keys.count()========" + keys.size());
+				System.out.println("alllkeys.count()========" + allKeys.size());
 				Iterator<SelectionKey> it = keys.iterator();
 				SelectionKey key = null;
 

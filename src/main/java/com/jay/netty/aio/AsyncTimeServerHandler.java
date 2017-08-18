@@ -8,7 +8,6 @@ import java.util.concurrent.CountDownLatch;
 public class AsyncTimeServerHandler implements Runnable
 {
 
-	private int port;
 
 	CountDownLatch latch;
 
@@ -16,8 +15,6 @@ public class AsyncTimeServerHandler implements Runnable
 
 	public AsyncTimeServerHandler(int port)
 	{
-		this.port = port;
-
 		try
 		{
 			asynchronousServerSocketChannel = AsynchronousServerSocketChannel.open();
@@ -34,20 +31,17 @@ public class AsyncTimeServerHandler implements Runnable
 	public void run()
 	{
 		latch = new CountDownLatch(1);
-		doAccept();
 		try
 		{
+			asynchronousServerSocketChannel.accept(this, new AcceptCompletionHandler());
 			latch.await();
+
 		}
-		catch (InterruptedException e)
+		catch (Exception e)
 		{
 			e.printStackTrace();
 		}
-	}
 
-	public void doAccept()
-	{
-		asynchronousServerSocketChannel.accept(this, new AcceptCompletionHandler());
 	}
 
 }
